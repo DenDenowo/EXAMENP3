@@ -17,11 +17,23 @@ def limpiarTreeview(tree):
         
 def mostrarMateriales():
     limpiarTreeview(txtConsulta)
-    materiales = controlador.consultaGeneral()
+    materiales = controlador.consultarMateriales()
     for mat in materiales:
         cadena = str(mat[0]) + " " + str(mat[1]) + " " + str(mat[2])
         print(cadena)
-        treeMateriales.insert("", "end", values=(mat[0], mat[1], mat[2]))  
+        txtConsulta.insert("", "end", values=(mat[0], mat[1], mat[2]))
+        
+def ejecutarUpdate():
+    controlador.actualizarMaterial(varIdActu.get(), varMaterialActu.get(), varCantidadActu.get())
+    varIdActu.set("")
+    varMaterialActu.set("")
+    varCantidadActu.set("")
+    
+def ejecutarDelete():
+    controlador.eliminarMaterial(varIdActu.get())
+    varIdActu.set("")
+    varMaterialActu.set("")
+    varCantidadActu.set("")
 
 
 Ventana = Tk()
@@ -57,11 +69,11 @@ lblIdActu = Label(pestana2, text="Id: ", font=("Helvetica bold", 12)).place(x=41
 lblNombreActu = Label(pestana2, text="Nombre: ", font=("Helvetica bold", 12)).place(x=390, y=110)
 lblCantidadActu = Label(pestana2, text="Cantidad: ", font=("Helvetica bold", 12)).place(x=390, y=170)
 varIdActu = StringVar()
-varNombreActu = StringVar()
 varMaterialActu = StringVar()
+varCantidadActu = StringVar()
 txtIdActu = Entry(pestana2, textvariable=varIdActu, width=30).place(x=330, y=70)
-txtNombreActu = Entry(pestana2, textvariable=varNombreActu, width=30).place(x=330, y=130)
-txtMaterialActu = Entry(pestana2, textvariable=varMaterialActu, width=30).place(x=330, y=190)
+txtMaterialActu = Entry(pestana2, textvariable=varMaterialActu, width=30).place(x=330, y=130)
+txtCantidadActu = Entry(pestana2, textvariable=varCantidadActu, width=30).place(x=330, y=190)
 
 #botones eliminar y actualizar centrados y de color naranja oscuro
 btnEliminar = Button(pestana2, text="Eliminar", command=ejecutarDelete, bg="dark orange", font=("Helvetica bold", 12), fg="white").place(x=390, y=230)
@@ -71,9 +83,10 @@ btnActualizar = Button(pestana2, text="Actualizar", command=ejecutarUpdate, bg="
 titulo = Label(pestana3, text="Materiales", font=("Helvetica bold", 18), fg="orange").place(x=390, y=10)
 txtConsulta = ttk.Treeview(pestana3, height=10, columns=("#0", "#1", "#2"))
 txtConsulta.place(x=10, y=50)
-txtConsulta.heading("#0", text="Id")
-txtConsulta.heading("#1", text="Material")
-txtConsulta.heading("#2", text="Cantidad")
+txtConsulta.heading("#0", text="")
+txtConsulta.heading("#1", text="Id")
+txtConsulta.heading("#2", text="Material")
+txtConsulta.heading("#3", text="Cantidad")
 
 btnActualizar = Button(pestana3, text="Mostrar Materiales", command=mostrarMateriales, bg="dark orange", font=("Helvetica bold", 12), fg="white").place(x=350, y=300)
 
