@@ -21,8 +21,7 @@ def mostrarMateriales():
     for mat in materiales:
         cadena = str(mat[0]) + " " + str(mat[1]) + " " + str(mat[2])
         print(cadena)
-        treeMateriales.insert("", "end", values=(mat[0], mat[1], mat[2]))
-        
+        treeMateriales.insert("", "end", values=(mat[0], mat[1], mat[2]))  
 
 
 Ventana = Tk()
